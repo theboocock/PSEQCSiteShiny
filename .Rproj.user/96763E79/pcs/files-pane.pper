@@ -1,0 +1,9 @@
+{
+    "path" : "~/resequencing/siteqc",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
