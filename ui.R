@@ -18,16 +18,16 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
+      fileInput('datafile', 'Choose PLINK/SEQ QC input file',
+                accept="text"),
       #   uiOutput("fileInput"),
       conditionalPanel(condition = "input.conditionedPanels == 'QC Table'"
-                       ,checkboxGroupInput('show_vars',"Columns in Site QC table to show:",
-                                           names(qc_table),selected=names(qc_table))
+                       ,uiOutput("column_checkbox")
       ),
       conditionalPanel(condition ="input.conditionedPanels == 'QC Plots Urate'",
                        numericInput("hwe_thresh",label="HWE threshold for plots",min=0,max=1,step=0.025,value=0.01),
-                       checkboxGroupInput("filters","Filters to exclude: ", unique(as.character(qc_table$filter))),
-                      numericInput("gqm",min=0,max=99,label="GQM -Min genotype Mean for Cases and Controls",value=0),
-                      
+                       numericInput("gqm",min=0,max=99,label="GQM -Min genotype Mean for Cases and Controls",value=0),
+                       uiOutput("filter_group"),
                        numericInput("max_prop_ref",min=0,max=1,step=0.025,value=1,label="SAMPLE_REF_AB - Maximum mean proportion of alternate alleles in homozygous reference call"),
                        numericInput("min_prop_alt",min=0,max=1,step=0.025,value=0,label="SAMPLE_HOM_AB - minimum mean proportion of alternate alleles in homozygous alternate call "),
                        numericInput("low_het_ab_prop",min=0,max=0.5,step=0.025,value=0,
